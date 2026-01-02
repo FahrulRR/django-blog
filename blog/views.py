@@ -65,3 +65,21 @@ def add_comment_to_post(request, pk):
     else:
         form = CommentForm()
     return render(request, 'blog/add_comment_to_post.html', {'form': form})
+
+def home(request):
+    return render(request, 'blog/index.html')
+
+def about(request):
+    return render(request, 'blog/about.html')
+
+def berita_list(request):
+    posts = Post.objects.order_by('-published_date')
+    return render(request, 'blog/post_list.html', {'posts': posts})
+
+def post_detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    return render(request, 'blog/post_detail.html', {'post': post})
+
+def home(request):
+    posts = Post.objects.order_by('-published_date')[:3]
+    return render(request, 'blog/home.html', {'posts': posts})
